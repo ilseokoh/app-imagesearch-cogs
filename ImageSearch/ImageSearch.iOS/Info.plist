@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>ImageSearch.iOS</string>
+	<string>ImageSearch</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.your-company.ImageSearch.iOS</string>
+	<string>com.ilseokoh.imagesearch</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
