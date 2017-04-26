@@ -27,7 +27,6 @@ namespace ImageSearch.ViewModel
         
         public async Task<bool> SearchForImagesAsync(string query)
         {
-           
             if(!CrossConnectivity.Current.IsConnected)
             {
                 await UserDialogs.Instance.AlertAsync("You are offline");
@@ -37,7 +36,7 @@ namespace ImageSearch.ViewModel
 			//Bing Image API
 			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
 				      $"search?q={query}" +
-					  $"&count=20&offset=0&mkt=en-us&safeSearch=Strict";
+					  $"&count=20&offset=0&mkt=ko-kr&safeSearch=Strict";
 
             try
             {
@@ -70,10 +69,6 @@ namespace ImageSearch.ViewModel
 
 			return true;
         }
-
-
-   
-
 
         public async Task AnalyzeImageAsync(string imageUrl)
         {
