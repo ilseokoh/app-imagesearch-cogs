@@ -31,15 +31,14 @@ namespace ImageSearch.iOS
                 ButtonSearch.Enabled = false;
                 ActivityIsLoading.StartAnimating();
 
-                await UIView.AnimateAsync(1.0, () =>
-                CollectionViewImages.Alpha = 0);
+                // iOS 빌트인 애니메이션
+                await UIView.AnimateAsync(1.0, () => CollectionViewImages.Alpha = 0);
 
+                // Shared 코드 호출
                 await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
                 CollectionViewImages.ReloadData();
 
-                await UIView.AnimateAsync(1.0, () =>
-                CollectionViewImages.Alpha = 1);
-
+                await UIView.AnimateAsync(1.0, () => CollectionViewImages.Alpha = 1);
 
                 ActivityIsLoading.StopAnimating();
                 ButtonSearch.Enabled = true;
