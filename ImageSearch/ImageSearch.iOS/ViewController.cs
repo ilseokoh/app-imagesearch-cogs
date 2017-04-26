@@ -26,29 +26,8 @@ namespace ImageSearch.iOS
             CollectionViewImages.WeakDataSource = this;
 
 
-            ButtonSearch.TouchUpInside += async (sender, args) =>
-            {
-                ButtonSearch.Enabled = false;
-                ActivityIsLoading.StartAnimating();
-
-                await UIView.AnimateAsync(1.0, () =>
-                CollectionViewImages.Alpha = 0);
-
-                await viewModel.SearchForImagesAsync(TextFieldQuery.Text);
-                CollectionViewImages.ReloadData();
-
-                await UIView.AnimateAsync(1.0, () =>
-                CollectionViewImages.Alpha = 1);
-
-
-                ActivityIsLoading.StopAnimating();
-                ButtonSearch.Enabled = true;
-            };
-
             SetupCamera();
 		}
-
-    
         
 
 		public override void DidReceiveMemoryWarning ()

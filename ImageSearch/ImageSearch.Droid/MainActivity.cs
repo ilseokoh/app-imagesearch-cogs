@@ -39,19 +39,7 @@ namespace ImageSearch.Droid
 
             progress.Visibility = ViewStates.Gone;
 
-            var clickButton = FindViewById<Button>(Resource.Id.my_button);
 
-
-            clickButton.Click += async (sender, args) =>
-            {
-                clickButton.Enabled = false;
-                progress.Visibility = ViewStates.Visible;
-
-                await viewModel.SearchForImagesAsync(query.Text);
-
-                progress.Visibility = ViewStates.Gone;
-                clickButton.Enabled = true;
-            };
 
             SetupMainView();
             SetupCamera();
@@ -100,9 +88,6 @@ namespace ImageSearch.Droid
             layoutManager = new GridLayoutManager(this, 2);
 
             recyclerView.SetLayoutManager(layoutManager);
-
-
-
 
             UserDialogs.Init(this);
         }
