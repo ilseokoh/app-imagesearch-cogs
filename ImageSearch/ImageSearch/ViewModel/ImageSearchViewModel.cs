@@ -25,6 +25,11 @@ namespace ImageSearch.ViewModel
             Images = new ObservableRangeCollection<ImageResult>();
         }
         
+        /// <summary>
+        /// Bing Search API에 검색 요청
+        /// </summary>
+        /// <param name="query">검색어</param>
+        /// <returns></returns>
         public async Task<bool> SearchForImagesAsync(string query)
         {
             if(!CrossConnectivity.Current.IsConnected)
@@ -33,13 +38,14 @@ namespace ImageSearch.ViewModel
                 return false;
             }
            
-			//Bing Image API
+			//Bing Image API URL
 			var url = $"https://api.cognitive.microsoft.com/bing/v5.0/images/" + 
 				      $"search?q={query}" +
 					  $"&count=20&offset=0&mkt=ko-kr&safeSearch=Strict";
 
             try
             {
+                // 헤더에 키 설정
                 var headerKey = "Ocp-Apim-Subscription-Key";
                 var headerValue = CognitiveServicesKeys.BingSearch;
 
@@ -48,8 +54,10 @@ namespace ImageSearch.ViewModel
 
                 var json = await client.GetStringAsync(url);
 
+                // JSON 결과 Deserialization
                 var stuff = JsonConvert.DeserializeObject<SearchResult>(json);
 
+                // 전체 결과에서 필요한 것만 Select 
                 var items = stuff.Images.Select(i => new ImageResult
                 {
                     ContextLink = i.ContentUrl,
@@ -59,6 +67,7 @@ namespace ImageSearch.ViewModel
                     Title = i.Name
                 });
 
+                // 컬렉션에 추가
                 Images.ReplaceRange(items);
 
             }
@@ -70,6 +79,11 @@ namespace ImageSearch.ViewModel
 			return true;
         }
 
+        /// <summary>
+        /// Emotion API 에 요청하는 메서드
+        /// </summary>
+        /// <param name="imageUrl">요청할 이미지 URL</param>
+        /// <returns></returns>
         public async Task AnalyzeImageAsync(string imageUrl)
         {
             var result = string.Empty;
@@ -79,8 +93,10 @@ namespace ImageSearch.ViewModel
                 {
                     var stream = await client.GetStreamAsync(imageUrl);
 
+                    // Emotion 서비스 요청 부분
                     var emotion = await EmotionService.GetAverageHappinessScoreAsync(stream);
 
+                    // 문자열로 공개
                     result = EmotionService.GetHappinessMessage(emotion);
                 }
             }
@@ -93,9 +109,11 @@ namespace ImageSearch.ViewModel
            
         }
         
-
-
-
+        /// <summary>
+        /// 사진 찍기 요청
+        /// </summary>
+        /// <param name="useCamera"></param>
+        /// <returns></returns>
         public async Task TakePhotoAndAnalyzeAsync(bool useCamera = true)
         {
             string result = "Error";
@@ -104,6 +122,7 @@ namespace ImageSearch.ViewModel
 
             try
             {
+                // CrossMedia 플러그인을 사용하여 사진찍기
                 await CrossMedia.Current.Initialize();
 
                 if (useCamera)
@@ -120,7 +139,6 @@ namespace ImageSearch.ViewModel
                     file = await CrossMedia.Current.PickPhotoAsync();
                 }
                
-
                 if (file == null)
                     result = "No photo taken.";
                 else

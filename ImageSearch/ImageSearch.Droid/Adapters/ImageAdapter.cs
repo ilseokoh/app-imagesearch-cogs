@@ -1,5 +1,4 @@
 using System;
-
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
@@ -30,7 +29,6 @@ namespace ImageSearch.Droid.Adapters
         // Create new views (invoked by the layout manager)
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-
             //Setup your layout here
             View itemView = null;
             var id = Resource.Layout.item;

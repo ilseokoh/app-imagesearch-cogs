@@ -18,13 +18,14 @@ namespace ImageSearch.Droid
     [Activity(Label = "Image Search", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : AppCompatActivity
     {
-
         ImageSearchViewModel viewModel;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            // axml 로드
             SetContentView(Resource.Layout.main);
+
             var toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             if (toolbar != null)
             {
@@ -36,9 +37,7 @@ namespace ImageSearch.Droid
             var progress = FindViewById<ProgressBar>(Resource.Id.my_progress);
             var query = FindViewById<EditText>(Resource.Id.my_query);
 
-
             progress.Visibility = ViewStates.Gone;
-
 
             var clickButton = FindViewById<Button>(Resource.Id.my_button);
 
