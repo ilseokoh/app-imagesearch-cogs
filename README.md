@@ -28,3 +28,13 @@ The following amazing libraries were used to create this app:
 ## License
 
 Under MIT
+
+## ObservableRangeCollection
+
+ObservableRangeCollection is a helper class by the Xamarin Evangelist James Montemagno.
+The source is available in his github: https://github.com/jamesmontemagno/mvvm-helpers
+ObservableRangeCollection intends to help when adding/replacing Collections to a ObservableCollection.
+In a "regular" ObservableCollection, for each new item added to the Collection, a OnCollectionChanged event would raise.
+This is where ObservableRangeCollection gets in. It allows to replace/add elements to the Collection without firing an event for each element.
+
+https://channel9.msdn.com/Shows/XamarinShow/The-Xamarin-Show-12-MVVM-Helpers
